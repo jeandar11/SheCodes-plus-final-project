@@ -19,8 +19,22 @@
   </head>
   <body>
     <div class="container">
+      <form>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter your city here..."
+            autofocus="on"
+            autocomplete="off"
+            id="city-input"
+          />
+        </div>
+        <button type="submit" class="btn btn-outline-dark">Search</button>
+        <button type="button" class="btn btn-outline-dark">Current</button>
+      </form>
       <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6">
           <header>
             <h1>Montreal</h1>
             <h2>Sunday 28 February</h2>
@@ -29,7 +43,7 @@
           </header>
         </div>
 
-        <div class="col-6">
+        <div class="col-sm-6">
           <div class="current-weather">
             <i class="fas fa-sun"></i>
             <div class="temperature">
