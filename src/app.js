@@ -45,7 +45,6 @@ function showTime(timestamp) {
 }
 
 function showWeather(response) {
-  console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
