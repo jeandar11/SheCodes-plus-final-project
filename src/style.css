@@ -19,3 +19,42 @@ form .search-engine {
   background-color: #a8edea;
   border-color: #a8edea;
 }
+
+header {
+  font-family: "Yanone Kaffeesatz", sans-serif;
+  margin-top: 30px;
+}
+
+h1 {
+  font-size: 80px;
+  line-height: 60px;
+  padding-bottom: 10px;
+}
+
+h2 {
+  font-size: 35px;
+  line-height: 25px;
+}
+
+h3 {
+  font-size: 25px;
+  line-height: 30px;
+}
+
+.current-weather {
+  margin-top: 30px;
+  text-align: center;
+}
+.current-weather i {
+  font-size: 100px;
+}
+.current-weather .temperature {
+  font-size: 50px;
+  position: relative;
+  left: 26px;
+}
+.current-weather .units {
+  font-size: 15px;
+  position: relative;
+  bottom: 24px;
+}
