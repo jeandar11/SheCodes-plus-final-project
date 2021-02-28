@@ -52,10 +52,14 @@ currentTime.innerHTML = showTime(today);
 
 //display city and temperature for searched city
 function showWeather(response) {
-  document.querySelector("h1").innerHTML = response.data.name;
+  document.querySelector("#city").innerHTML = response.data.name;
 
-  let temperature = Math.round(response.data.main.temp);
-  document.querySelector("#local-temperature").innerHTML = temperature;
+  document.querySelector("#local-temperature").innerHTML = Math.round(
+    response.data.main.temp
+  );
+
+  document.querySelector("#weather-description").innerHTML =
+    response.data.weather[0].description;
 }
 
 function search(city) {
