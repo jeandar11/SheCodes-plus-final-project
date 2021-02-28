@@ -1,0 +1,21 @@
+.container {
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+  max-width: 600px;
+  padding: 40px;
+  border-radius: 5%;
+}
+
+form .search-engine {
+  max-width: fit-content;
+  float: left;
+}
+
+.btn {
+  margin-left: 10px;
+  border-color: #a8edea;
+  transition: all 200ms ease-in-out;
+}
+:hover.btn {
+  background-color: #a8edea;
+  border-color: #a8edea;
+}
