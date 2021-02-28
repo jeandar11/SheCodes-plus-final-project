@@ -72,3 +72,22 @@ function handleSearch(event) {
 
 let searchForm = document.querySelector("#search-city-form");
 searchForm.addEventListener("submit", handleSearch);
+
+search(`Montreal`);
+
+// geolocation feature
+function handlePosition(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showWeather);
+}
+
+function getPosition(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(handlePosition);
+}
+
+let currentPositionButton = document.querySelector("#current-position-button");
+currentPositionButton.addEventListener("click", getPosition);
