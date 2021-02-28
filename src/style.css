@@ -1,6 +1,7 @@
 .container {
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
   max-width: 600px;
+  margin-top: 40px;
   padding: 40px;
   border-radius: 5%;
 }
@@ -57,4 +58,27 @@ h3 {
   font-size: 15px;
   position: relative;
   bottom: 24px;
+}
+
+.card {
+  background-color: transparent;
+  border: none;
+}
+.card-body {
+  text-align: center;
+}
+.card-body i {
+  font-size: 35px;
+  padding: 8px;
+}
+.card-body h6 {
+  font-size: 15px;
+}
+.card-body p {
+  font-size: 13px;
+  line-height: 10px;
+}
+
+#github-link {
+  text-align: center;
 }
