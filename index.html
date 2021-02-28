@@ -19,6 +19,8 @@
       href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz&display=swap"
       rel="stylesheet"
     />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <link rel="stylesheet" href="src/style.css" />
   </head>
   <body>
@@ -41,8 +43,8 @@
         <div class="col-sm-6">
           <header>
             <h1>Montreal</h1>
-            <h2>Sunday 28 February</h2>
-            <h2>11:00am</h2>
+            <h2 id="local-date">Sunday 28 February</h2>
+            <h2 id="local-time">11:00am</h2>
             <h3>Sunny</h3>
           </header>
         </div>
@@ -51,8 +53,8 @@
           <div class="current-weather">
             <i class="fas fa-sun"></i>
             <div class="temperature">
-              <span>19</span>
-              <span class="units">
+              <span>19</span
+              ><span class="units">
                 <a href="#">°C</a> |
                 <a href="#">°F</a>
               </span>
