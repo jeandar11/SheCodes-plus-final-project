@@ -1,6 +1,5 @@
-let today = new Date();
-
-function showDate(today) {
+function showDate(timestamp) {
+  let today = new Date(timestamp);
   let dayIndex = [
     "Sunday",
     "Monday",
@@ -10,7 +9,6 @@ function showDate(today) {
     "Friday",
     "Saturday",
   ];
-
   let monthIndex = [
     "January",
     "February",
@@ -32,7 +30,8 @@ function showDate(today) {
   return `${day} ${date} ${month}`;
 }
 
-function showTime(today) {
+function showTime(timestamp) {
+  let today = new Date(timestamp);
   let hours = today.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
@@ -41,17 +40,12 @@ function showTime(today) {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+
   return `${hours}:${minutes}`;
 }
 
-let currentDate = document.querySelector("#local-date");
-currentDate.innerHTML = showDate(today);
-
-let currentTime = document.querySelector("#local-time");
-currentTime.innerHTML = showTime(today);
-
-//display city and temperature for searched city
 function showWeather(response) {
+  console.log(response);
   document.querySelector("#city").innerHTML = response.data.name;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
@@ -60,6 +54,14 @@ function showWeather(response) {
 
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].description;
+
+  document.querySelector("#local-date").innerHTML = showDate(
+    response.data.dt * 1000
+  );
+
+  document.querySelector("#local-time").innerHTML = showTime(
+    response.data.dt * 1000
+  );
 }
 
 function search(city) {
