@@ -96,10 +96,11 @@ function changeIcon(response) {
 }
 
 function showWeather(response) {
+  celsiusTemperature = response.data.main.temp;
   document.querySelector("#city").innerHTML = response.data.name;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
-    response.data.main.temp
+    celsiusTemperature
   );
 
   document.querySelector("#weather-description").innerHTML =
@@ -130,8 +131,6 @@ function handleSearch(event) {
 let searchForm = document.querySelector("#search-city-form");
 searchForm.addEventListener("submit", handleSearch);
 
-search(`Montreal`);
-
 // geolocation feature
 function handlePosition(position) {
   let latitude = position.coords.latitude;
@@ -148,3 +147,31 @@ function getPosition(event) {
 
 let currentPositionButton = document.querySelector("#current-position-button");
 currentPositionButton.addEventListener("click", getPosition);
+
+// unit conversion
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#local-temperature");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#local-temperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToCelsius);
+
+search(`Montreal`);
