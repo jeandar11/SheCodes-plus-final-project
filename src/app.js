@@ -44,6 +44,57 @@ function showTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
+function changeIcon(response) {
+  if (response.data.weather[0].icon === `01d`) {
+    document.querySelector("#weather-icon").setAttribute("class", "fas fa-sun");
+  } else if (response.data.weather[0].icon === `01n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-moon");
+  } else if (response.data.weather[0].icon === `02d`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud-sun");
+  } else if (response.data.weather[0].icon === `02n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud-moon");
+  } else if (
+    response.data.weather[0].icon === `03d` ||
+    `03n` ||
+    `04d` ||
+    `04n`
+  ) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud");
+  } else if (response.data.weather[0].icon === `09d` || `09n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud-showers-heavy");
+  } else if (response.data.weather[0].icon === `10d`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud-sun-rain");
+  } else if (response.data.weather[0].icon === `10n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-cloud-moon-rain");
+  } else if (response.data.weather[0].icon === `11d` || `11n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-bolt");
+  } else if (response.data.weather[0].icon === `13d` || `13n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-snowflake");
+  } else if (response.data.weather[0].icon === `50d` || `50n`) {
+    document
+      .querySelector("#weather-icon")
+      .setAttribute("class", "fas fa-smog");
+  }
+}
+
 function showWeather(response) {
   document.querySelector("#city").innerHTML = response.data.name;
 
@@ -67,6 +118,7 @@ function search(city) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrl).then(changeIcon);
 }
 
 function handleSearch(event) {
