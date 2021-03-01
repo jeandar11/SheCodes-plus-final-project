@@ -114,12 +114,36 @@ function showWeather(response) {
     response.data.dt * 1000
   );
 }
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#hourly-forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 4; index++) {
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+              <i class=""></i>
+              <h6 class="card-title">${showTime(forecast.dt * 1000)}</h6>
+              <p class="card-text"><strong> ${Math.round(
+                forecast.main.temp_max
+              )}°</strong> ${Math.round(forecast.main.temp_min)}°</p>
+            </div>
+        </div>
+    </div>`;
+  }
+}
 
 function search(city) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
   axios.get(apiUrl).then(changeIcon);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function handleSearch(event) {
