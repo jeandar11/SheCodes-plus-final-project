@@ -61,14 +61,17 @@ function changeIcon(response) {
       .setAttribute("class", "fas fa-cloud-moon");
   } else if (
     response.data.weather[0].icon === `03d` ||
-    `03n` ||
-    `04d` ||
-    `04n`
+    response.data.weather[0].icon === `03n` ||
+    response.data.weather[0].icon === `04d` ||
+    response.data.weather[0].icon === `04n`
   ) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-cloud");
-  } else if (response.data.weather[0].icon === `09d` || `09n`) {
+  } else if (
+    response.data.weather[0].icon === `09d` ||
+    response.data.weather[0].icon === `09n`
+  ) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-cloud-showers-heavy");
@@ -80,15 +83,24 @@ function changeIcon(response) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-cloud-moon-rain");
-  } else if (response.data.weather[0].icon === `11d` || `11n`) {
+  } else if (
+    response.data.weather[0].icon === `11d` ||
+    response.data.weather[0].icon === `11n`
+  ) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-bolt");
-  } else if (response.data.weather[0].icon === `13d` || `13n`) {
+  } else if (
+    response.data.weather[0].icon === `13d` ||
+    response.data.weather[0].icon === `13n`
+  ) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-snowflake");
-  } else if (response.data.weather[0].icon === `50d` || `50n`) {
+  } else if (
+    response.data.weather[0].icon === `50d` ||
+    response.data.weather[0].icon === `50n`
+  ) {
     document
       .querySelector("#weather-icon")
       .setAttribute("class", "fas fa-smog");
