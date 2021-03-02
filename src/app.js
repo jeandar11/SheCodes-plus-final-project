@@ -76,6 +76,7 @@ function changeWeatherIcon(icon) {
 }
 
 function showWeather(response) {
+  console.log(response);
   celsiusTemperature = response.data.main.temp;
   document.querySelector("#city").innerHTML = response.data.name;
 
@@ -97,6 +98,14 @@ function showWeather(response) {
   document
     .querySelector("#weather-icon")
     .setAttribute("class", changeWeatherIcon(response.data.weather[0].icon));
+
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `Humidity: ${response.data.main.humidity}%`;
+
+  document.querySelector("#wind-speed").innerHTML = `Wind speed: ${Math.round(
+    response.data.wind.speed * 3.6
+  )} km/h`;
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#hourly-forecast");
