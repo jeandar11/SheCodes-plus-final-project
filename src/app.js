@@ -46,64 +46,44 @@ function showTime(timestamp) {
 
 function changeIcon(response) {
   if (response.data.weather[0].icon === `01d`) {
-    document.querySelector("#weather-icon").setAttribute("class", "fas fa-sun");
+    return "fas fa-sun";
   } else if (response.data.weather[0].icon === `01n`) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-moon");
+    return "fas fa-moon";
   } else if (response.data.weather[0].icon === `02d`) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud-sun");
+    return "fas fa-cloud-sun";
   } else if (response.data.weather[0].icon === `02n`) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud-moon");
+    return "fas fa-cloud-moon";
   } else if (
     response.data.weather[0].icon === `03d` ||
     response.data.weather[0].icon === `03n` ||
     response.data.weather[0].icon === `04d` ||
     response.data.weather[0].icon === `04n`
   ) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud");
+    return "fas fa-cloud";
   } else if (
     response.data.weather[0].icon === `09d` ||
     response.data.weather[0].icon === `09n`
   ) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud-showers-heavy");
+    return "fas fa-cloud-showers-heavy";
   } else if (response.data.weather[0].icon === `10d`) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud-sun-rain");
+    return "fas fa-cloud-sun-rain";
   } else if (response.data.weather[0].icon === `10n`) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-cloud-moon-rain");
+    return "fas fa-cloud-moon-rain";
   } else if (
     response.data.weather[0].icon === `11d` ||
     response.data.weather[0].icon === `11n`
   ) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-bolt");
+    return "fas fa-bolt";
   } else if (
     response.data.weather[0].icon === `13d` ||
     response.data.weather[0].icon === `13n`
   ) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-snowflake");
+    return "fas fa-snowflake";
   } else if (
     response.data.weather[0].icon === `50d` ||
     response.data.weather[0].icon === `50n`
   ) {
-    document
-      .querySelector("#weather-icon")
-      .setAttribute("class", "fas fa-smog");
+    return "fas fa-smog";
   }
 }
 
@@ -125,6 +105,10 @@ function showWeather(response) {
   document.querySelector("#local-time").innerHTML = showTime(
     response.data.dt * 1000
   );
+
+  document
+    .querySelector("#weather-icon")
+    .setAttribute("class", changeIcon(response));
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#hourly-forecast");
