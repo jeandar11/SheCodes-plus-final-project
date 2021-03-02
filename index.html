@@ -25,62 +25,65 @@
   </head>
   <body>
     <div class="container">
-      <form id="search-city-form">
-        <div class="search-engine">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter your city here..."
-            autofocus="on"
-            autocomplete="off"
-            id="city-input"
-          />
-        </div>
-        <button type="submit" class="btn btn-outline-dark">
-          <i class="fas fa-search"></i>
-        </button>
-        <button
-          type="button"
-          class="btn btn-outline-dark"
-          id="current-position-button"
-        >
-          <i class="fas fa-map-marker-alt"></i>
-        </button>
-      </form>
-      <div class="row">
-        <div class="col-sm-6">
-          <header>
-            <h1 id="city"></h1>
-            <h2 id="local-date"></h2>
-            <h2 id="local-time"></h2>
-            <h3 id="weather-description"></h3>
-          </header>
-        </div>
+      <div class="main-app">
+        <form id="search-city-form">
+          <div class="search-engine">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter your city here..."
+              autofocus="on"
+              autocomplete="off"
+              id="city-input"
+            />
+          </div>
+          <button type="submit" class="btn btn-outline-dark">
+            <i class="fas fa-search"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-dark"
+            id="current-position-button"
+          >
+            <i class="fas fa-map-marker-alt"></i>
+          </button>
+        </form>
+        <div class="row">
+          <div class="col-sm-6">
+            <header>
+              <h1 id="city"></h1>
+              <h2 id="local-date"></h2>
+              <h2 id="local-time"></h2>
+              <h3 id="weather-description"></h3>
+            </header>
+          </div>
 
-        <div class="col-sm-6">
-          <div class="current-weather">
-            <i id="weather-icon" class=""></i>
-            <div class="temperature">
-              <span id="local-temperature"></span
-              ><span class="units">
-                <a href="#" id="celsius-link" class="active">°C</a> |
-                <a href="#" id="fahrenheit-link">°F</a>
-              </span>
+          <div class="col-sm-6">
+            <div class="current-weather">
+              <i id="weather-icon" class=""></i>
+              <div class="temperature">
+                <span id="local-temperature"></span
+                ><span class="units">
+                  <a href="#" id="celsius-link" class="active">°C</a> |
+                  <a href="#" id="fahrenheit-link">°F</a>
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row" id="hourly-forecast"></div>
+        <div class="row" id="hourly-forecast"></div>
+      </div>
+      <small id="github-link">
+        <a
+          href="https://github.com/jeandar11/SheCodes-plus-final-project"
+          target="_blank"
+          >Open-source code</a
+        >
+        by Jeanne Darcel thanks to
+        <a href="https://shecodes.io" target="_blank">SheCodes</a> 👩‍💻
+      </small>
     </div>
-    <small id="github-link">
-      <a
-        href="https://github.com/jeandar11/SheCodes-plus-final-project"
-        target="_blank"
-        >Open-source code</a
-      >
-      by Jeanne Darcel
-    </small>
   </body>
   <script src="src/app.js"></script>
 </html>

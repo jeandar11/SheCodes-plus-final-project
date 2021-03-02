@@ -1,6 +1,8 @@
 .container {
-  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
   max-width: 600px;
+}
+.main-app {
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
   margin-top: 40px;
   padding: 40px;
   border-radius: 5%;
@@ -89,6 +91,7 @@ h3 {
   line-height: 10px;
 }
 
-#github-link {
-  text-align: center;
+#github-link a {
+  text-decoration: none;
+  color: #fa98b7;
 }
