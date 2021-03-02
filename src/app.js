@@ -44,47 +44,35 @@ function showTime(timestamp) {
   return `${hours}:${minutes}`;
 }
 
-function changeIcon(response) {
-  if (response.data.weather[0].icon === `01d`) {
-    return "fas fa-sun";
-  } else if (response.data.weather[0].icon === `01n`) {
-    return "fas fa-moon";
-  } else if (response.data.weather[0].icon === `02d`) {
-    return "fas fa-cloud-sun";
-  } else if (response.data.weather[0].icon === `02n`) {
-    return "fas fa-cloud-moon";
+function changeWeatherIcon(icon) {
+  let iconElement = "";
+  if (icon === "01d") {
+    iconElement = "fas fa-sun";
+  } else if (icon === "01n") {
+    iconElement = "fas fa-moon";
+  } else if (icon === "02d") {
+    iconElement = "fas fa-cloud-sun";
+  } else if (icon === "02n") {
+    iconElement = "fas fa-cloud-moon";
   } else if (
-    response.data.weather[0].icon === `03d` ||
-    response.data.weather[0].icon === `03n` ||
-    response.data.weather[0].icon === `04d` ||
-    response.data.weather[0].icon === `04n`
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n"
   ) {
-    return "fas fa-cloud";
-  } else if (
-    response.data.weather[0].icon === `09d` ||
-    response.data.weather[0].icon === `09n`
-  ) {
-    return "fas fa-cloud-showers-heavy";
-  } else if (response.data.weather[0].icon === `10d`) {
-    return "fas fa-cloud-sun-rain";
-  } else if (response.data.weather[0].icon === `10n`) {
-    return "fas fa-cloud-moon-rain";
-  } else if (
-    response.data.weather[0].icon === `11d` ||
-    response.data.weather[0].icon === `11n`
-  ) {
-    return "fas fa-bolt";
-  } else if (
-    response.data.weather[0].icon === `13d` ||
-    response.data.weather[0].icon === `13n`
-  ) {
-    return "fas fa-snowflake";
-  } else if (
-    response.data.weather[0].icon === `50d` ||
-    response.data.weather[0].icon === `50n`
-  ) {
-    return "fas fa-smog";
+    iconElement = "fas fa-cloud";
+  } else if (icon === "09d" || icon === "09n") {
+    iconElement = "fas fa-cloud-showers-heavy";
+  } else if (icon === "10d") {
+    iconElement = "fas fa-cloud-sun-rain";
+  } else if (icon === "10n") {
+    iconElement = "fas fa-cloud-moon-rain";
+  } else if (icon === "13d" || icon === "13n") {
+    iconElement = "far fa-snowflake";
+  } else if (icon === "50d" || icon === "50n") {
+    iconElement = "fas fa-smog";
   }
+  return iconElement;
 }
 
 function showWeather(response) {
@@ -108,7 +96,7 @@ function showWeather(response) {
 
   document
     .querySelector("#weather-icon")
-    .setAttribute("class", changeIcon(response));
+    .setAttribute("class", changeWeatherIcon(response.data.weather[0].icon));
 }
 function displayForecast(response) {
   let forecastElement = document.querySelector("#hourly-forecast");
@@ -121,7 +109,7 @@ function displayForecast(response) {
     <div class="col-sm-3">
         <div class="card">
             <div class="card-body">
-              <i class=""></i>
+              <i class="${changeWeatherIcon(forecast.weather[0].icon)}"></i>
               <h6 class="card-title">${showTime(forecast.dt * 1000)}</h6>
               <p class="card-text"><strong> ${Math.round(
                 forecast.main.temp_max
@@ -136,7 +124,6 @@ function search(city) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
-  axios.get(apiUrl).then(changeIcon);
 
   apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
