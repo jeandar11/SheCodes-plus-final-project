@@ -1,3 +1,18 @@
+function showForecastDays(timestamp) {
+  let today = new Date(timestamp);
+  let dayIndex = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = dayIndex[today.getDay()];
+  return day;
+}
+
 function showDate(timestamp) {
   let today = new Date(timestamp);
   let dayIndex = [
@@ -77,71 +92,85 @@ function changeWeatherIcon(icon) {
 
 function showWeather(response) {
   console.log(response);
-  celsiusTemperature = response.data.main.temp;
-  document.querySelector("#city").innerHTML = response.data.name;
+  celsiusTemperature = response.data.current.temp;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
     celsiusTemperature
   );
 
   document.querySelector("#weather-description").innerHTML =
-    response.data.weather[0].description;
+    response.data.current.weather[0].description;
 
   document.querySelector("#local-date").innerHTML = showDate(
-    response.data.dt * 1000
+    response.data.current.dt * 1000
   );
 
   document.querySelector("#local-time").innerHTML = showTime(
-    response.data.dt * 1000
+    response.data.current.dt * 1000
   );
 
   document
     .querySelector("#weather-icon")
-    .setAttribute("class", changeWeatherIcon(response.data.weather[0].icon));
+    .setAttribute(
+      "class",
+      changeWeatherIcon(response.data.current.weather[0].icon)
+    );
 
   document.querySelector(
     "#humidity"
-  ).innerHTML = `Humidity: ${response.data.main.humidity}%`;
+  ).innerHTML = `Humidity: ${response.data.current.humidity}%`;
 
   document.querySelector("#wind-speed").innerHTML = `Wind speed: ${Math.round(
-    response.data.wind.speed * 3.6
+    response.data.current.wind_speed * 3.6
   )} km/h`;
 }
-function displayForecast(response) {
-  let forecastElement = document.querySelector("#hourly-forecast");
-  forecastElement.innerHTML = null;
-  let forecast = null;
+function showDailyForecast(response) {
+  let dailyForecastElement = document.querySelector("#daily-forecast");
+  dailyForecastElement.innerHTML = null;
+  let dailyForecast = null;
 
   for (let index = 0; index < 4; index++) {
-    forecast = response.data.list[index];
-    forecastElement.innerHTML += `
+    dailyForecast = response.data.daily[index];
+    dailyForecastElement.innerHTML += `
     <div class="col-sm-3">
         <div class="card">
             <div class="card-body">
-              <i class="${changeWeatherIcon(forecast.weather[0].icon)}"></i>
-              <h6 class="card-title">${showTime(forecast.dt * 1000)}</h6>
+              <i class="${changeWeatherIcon(
+                dailyForecast.weather[0].icon
+              )}"></i>
+              <h6 class="card-title">${showForecastDays(
+                dailyForecast.dt * 1000
+              )}</h6>
               <p class="card-text"><strong> ${Math.round(
-                forecast.main.temp_max
-              )}°</strong> ${Math.round(forecast.main.temp_min)}°</p>
+                dailyForecast.temp.max
+              )}°</strong> ${Math.round(dailyForecast.temp.min)}°</p>
             </div>
         </div>
     </div>`;
   }
 }
 
-function search(city) {
+function search(response) {
+  document.querySelector("#city").innerHTML = response.data.name;
+
+  let latitude = response.data.coord.lat;
+  let longitude = response.data.coord.lon;
+  let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
+  axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrl).then(showDailyForecast);
+}
+
+function getCoordinates(city) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(showWeather);
-
-  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayForecast);
+  axios.get(apiUrl).then(search);
 }
 
 function handleSearch(event) {
   event.preventDefault();
   let city = document.querySelector("#city-input").value;
-  search(city);
+  getCoordinates(city);
 }
 
 let searchForm = document.querySelector("#search-city-form");
@@ -190,4 +219,4 @@ fahrenheitLink.addEventListener("click", convertToFahrenheit);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
 
-search(`Montreal`);
+getCoordinates(`Montreal`);

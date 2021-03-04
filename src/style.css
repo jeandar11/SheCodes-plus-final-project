@@ -3,7 +3,7 @@
 }
 .main-app {
   background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
-  margin-top: 40px;
+  margin-top: 20px;
   padding: 40px;
   border-radius: 5%;
 }
@@ -81,6 +81,7 @@ h4 {
   border: none;
 }
 .card-body {
+  padding: 5px;
   text-align: center;
 }
 .card-body i {
