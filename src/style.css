@@ -84,14 +84,28 @@ h4 {
   padding: 5px;
   text-align: center;
 }
-.card-body i {
+#hourly-forecast {
+  padding: 10px 0 10px 0;
+}
+#hourly-forecast .card-body i {
+  font-size: 30px;
+}
+#hourly-forecast .card-body h6 {
+  font-size: 14px;
+}
+#hourly-forecast .card-body p {
+  font-size: 13px;
+  line-height: 8px;
+}
+
+#daily-forecast .card-body i {
   font-size: 35px;
   padding: 8px;
 }
-.card-body h6 {
+#daily-forecast .card-body h6 {
   font-size: 15px;
 }
-.card-body p {
+#daily-forecast .card-body p {
   font-size: 13px;
   line-height: 10px;
 }

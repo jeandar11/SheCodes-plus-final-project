@@ -150,6 +150,30 @@ function showDailyForecast(response) {
   }
 }
 
+function showHourlyForecast(response) {
+  let hourlyForecastElement = document.querySelector("#hourly-forecast");
+  hourlyForecastElement.innerHTML = null;
+  let hourlyForecast = null;
+
+  for (let index = 0; index < 6; index++) {
+    hourlyForecast = response.data.hourly[index];
+    hourlyForecastElement.innerHTML += `
+    <div class="col-sm-2">
+        <div class="card">
+            <div class="card-body">
+              <i class="${changeWeatherIcon(
+                hourlyForecast.weather[0].icon
+              )}"></i>
+              <h6 class="card-title">${showTime(hourlyForecast.dt * 1000)}</h6>
+              <p class="card-text"><strong> ${Math.round(
+                hourlyForecast.temp
+              )}°</strong></p>
+            </div>
+        </div>
+    </div>`;
+  }
+}
+
 function search(response) {
   document.querySelector("#city").innerHTML = response.data.name;
 
@@ -159,6 +183,7 @@ function search(response) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
   axios.get(apiUrl).then(showDailyForecast);
+  axios.get(apiUrl).then(showHourlyForecast);
 }
 
 function getCoordinates(city) {
