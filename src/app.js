@@ -91,7 +91,6 @@ function changeWeatherIcon(icon) {
 }
 
 function showWeather(response) {
-  console.log(response);
   celsiusTemperature = response.data.current.temp;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
@@ -129,7 +128,7 @@ function showDailyForecast(response) {
   dailyForecastElement.innerHTML = null;
   let dailyForecast = null;
 
-  for (let index = 0; index < 4; index++) {
+  for (let index = 1; index < 5; index++) {
     dailyForecast = response.data.daily[index];
     dailyForecastElement.innerHTML += `
     <div class="col-sm-3">
@@ -165,7 +164,7 @@ function showHourlyForecast(response) {
                 hourlyForecast.weather[0].icon
               )}"></i>
               <h6 class="card-title">${showTime(hourlyForecast.dt * 1000)}</h6>
-              <p class="card-text"><strong> ${Math.round(
+              <p class="card-text"><strong id="hourly-temp"> ${Math.round(
                 hourlyForecast.temp
               )}°</strong></p>
             </div>
@@ -202,12 +201,21 @@ let searchForm = document.querySelector("#search-city-form");
 searchForm.addEventListener("submit", handleSearch);
 
 // geolocation feature
+function displayLocationName(response) {
+  document.querySelector("#city").innerHTML = response.data.name;
+}
+
 function handlePosition(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
+  axios.get(apiUrl).then(showDailyForecast);
+  axios.get(apiUrl).then(showHourlyForecast);
+
+  apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+  axios.get(apiUrl).then(displayLocationName);
 }
 
 function getPosition(event) {
