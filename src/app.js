@@ -82,12 +82,47 @@ function changeWeatherIcon(icon) {
     iconElement = "fas fa-cloud-sun-rain";
   } else if (icon === "10n") {
     iconElement = "fas fa-cloud-moon-rain";
+  } else if (icon === "11d" || icon === "11n") {
+    iconElement = "far fa-bolt";
   } else if (icon === "13d" || icon === "13n") {
     iconElement = "far fa-snowflake";
   } else if (icon === "50d" || icon === "50n") {
     iconElement = "fas fa-smog";
   }
   return iconElement;
+}
+
+function changeBackground(icon) {
+  let backgroundGradient = "";
+  if (icon === "01d") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #ffb26b 100%)";
+  } else if (icon === "02d") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #ffeebb 100%)";
+  } else if (icon === "01n" || icon === "02n") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #c1a1d3 100%)";
+  } else if (
+    icon === "03d" ||
+    icon === "03n" ||
+    icon === "04d" ||
+    icon === "04n"
+  ) {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #fed6e3 100%)";
+  } else if (
+    icon === "09d" ||
+    icon === "09n" ||
+    icon === "10d" ||
+    icon === "10n"
+  ) {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #a6a9b6 100%)";
+  } else if (icon === "11d" || icon === "11n") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #4d375d 100%)";
+  } else if (icon === "13d" || icon === "13n") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #fdfbfb 100%)";
+  } else if (icon === "50d" || icon === "50n") {
+    backgroundGradient = "linear-gradient(to top, #a8edea 0%, #cee6b4 100%)";
+  }
+
+  return backgroundGradient;
 }
 
 function showWeather(response) {
@@ -114,6 +149,10 @@ function showWeather(response) {
       "class",
       changeWeatherIcon(response.data.current.weather[0].icon)
     );
+
+  document.getElementById("main-app").style.backgroundImage = changeBackground(
+    response.data.current.weather[0].icon
+  );
 
   document.querySelector(
     "#humidity"
