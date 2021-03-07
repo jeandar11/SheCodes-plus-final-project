@@ -123,6 +123,7 @@ function showWeather(response) {
     response.data.current.wind_speed * 3.6
   )} km/h`;
 }
+
 function showForecast(response) {
   let dailyForecastElement = document.querySelector("#daily-forecast");
   dailyForecastElement.innerHTML = null;
@@ -152,7 +153,7 @@ function showForecast(response) {
   hourlyForecastElement.innerHTML = null;
   let hourlyForecast = null;
 
-  for (let index = 0; index < 6; index++) {
+  for (let index = 1; index < 7; index++) {
     hourlyForecast = response.data.hourly[index];
     hourlyForecastElement.innerHTML += `
     <div class="col-sm-2">
