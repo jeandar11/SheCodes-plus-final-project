@@ -123,7 +123,7 @@ function showWeather(response) {
     response.data.current.wind_speed * 3.6
   )} km/h`;
 }
-function showDailyForecast(response) {
+function showForecast(response) {
   let dailyForecastElement = document.querySelector("#daily-forecast");
   dailyForecastElement.innerHTML = null;
   let dailyForecast = null;
@@ -147,9 +147,7 @@ function showDailyForecast(response) {
         </div>
     </div>`;
   }
-}
 
-function showHourlyForecast(response) {
   let hourlyForecastElement = document.querySelector("#hourly-forecast");
   hourlyForecastElement.innerHTML = null;
   let hourlyForecast = null;
@@ -181,8 +179,7 @@ function search(response) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
-  axios.get(apiUrl).then(showDailyForecast);
-  axios.get(apiUrl).then(showHourlyForecast);
+  axios.get(apiUrl).then(showForecast);
 }
 
 function getCoordinates(city) {
@@ -211,8 +208,7 @@ function handlePosition(position) {
   let apiKey = "e272d099b6abcf1dc841d6126369d7ac";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showWeather);
-  axios.get(apiUrl).then(showDailyForecast);
-  axios.get(apiUrl).then(showHourlyForecast);
+  axios.get(apiUrl).then(showForecast);
 
   apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
   axios.get(apiUrl).then(displayLocationName);
