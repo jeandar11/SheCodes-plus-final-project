@@ -126,6 +126,7 @@ function changeBackground(icon) {
 }
 
 function showWeather(response) {
+  console.log(response);
   celsiusTemperature = response.data.current.temp;
 
   document.querySelector("#local-temperature").innerHTML = Math.round(
@@ -139,9 +140,7 @@ function showWeather(response) {
     response.data.current.dt * 1000
   );
 
-  document.querySelector("#local-time").innerHTML = showTime(
-    response.data.current.dt * 1000
-  );
+  document.querySelector("#local-time").innerHTML = showTime(location);
 
   document
     .querySelector("#weather-icon")
@@ -201,14 +200,32 @@ function showForecast(response) {
               <i class="${changeWeatherIcon(
                 hourlyForecast.weather[0].icon
               )}"></i>
-              <h6 class="card-title">${showTime(hourlyForecast.dt * 1000)}</h6>
+              <h6 class="card-title">${formatLocalTime(
+                hourlyForecast.dt * 1000
+              )}</h6>
               <p class="card-text"><strong id="hourly-temp"> ${Math.round(
                 hourlyForecast.temp
               )}°</strong></p>
             </div>
         </div>
     </div>`;
+
+    let now = new Date();
+    let localTime = now.getTime();
+    let localOffset = now.getTimezoneOffset() * 60000;
+    let utc = localTime + localOffset;
+    var location = utc + 1000 * response.data.timezone_offset;
+
+    function formatLocalTime(timestamp) {
+      let now = new Date(timestamp);
+      let localTime = now.getTime();
+      let localOffset = now.getTimezoneOffset() * 60000;
+      let utc = localTime + localOffset;
+      var location = utc + 1000 * response.data.timezone_offset;
+      return showTime(location);
+    }
   }
+  document.querySelector("#local-time").innerHTML = showTime(location);
 }
 
 function search(response) {
