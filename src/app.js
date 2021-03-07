@@ -46,12 +46,12 @@ function showDate(timestamp) {
 }
 
 function showTime(timestamp) {
-  let today = new Date(timestamp);
-  let hours = today.getHours();
+  let now = new Date(timestamp);
+  let hours = now.getHours();
   if (hours < 10) {
     hours = `0${hours}`;
   }
-  let minutes = today.getMinutes();
+  let minutes = now.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
@@ -125,43 +125,6 @@ function changeBackground(icon) {
   return backgroundGradient;
 }
 
-function showWeather(response) {
-  console.log(response);
-  celsiusTemperature = response.data.current.temp;
-
-  document.querySelector("#local-temperature").innerHTML = Math.round(
-    celsiusTemperature
-  );
-
-  document.querySelector("#weather-description").innerHTML =
-    response.data.current.weather[0].description;
-
-  document.querySelector("#local-date").innerHTML = showDate(
-    response.data.current.dt * 1000
-  );
-
-  document.querySelector("#local-time").innerHTML = showTime(location);
-
-  document
-    .querySelector("#weather-icon")
-    .setAttribute(
-      "class",
-      changeWeatherIcon(response.data.current.weather[0].icon)
-    );
-
-  document.getElementById("main-app").style.backgroundImage = changeBackground(
-    response.data.current.weather[0].icon
-  );
-
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `Humidity: ${response.data.current.humidity}%`;
-
-  document.querySelector("#wind-speed").innerHTML = `Wind speed: ${Math.round(
-    response.data.current.wind_speed * 3.6
-  )} km/h`;
-}
-
 function showForecast(response) {
   let dailyForecastElement = document.querySelector("#daily-forecast");
   dailyForecastElement.innerHTML = null;
@@ -212,20 +175,53 @@ function showForecast(response) {
 
     let now = new Date();
     let localTime = now.getTime();
-    let localOffset = now.getTimezoneOffset() * 60000;
-    let utc = localTime + localOffset;
-    var location = utc + 1000 * response.data.timezone_offset;
+    let timezoneOffset = now.getTimezoneOffset() * 60000;
+    var location =
+      localTime + timezoneOffset + 1000 * response.data.timezone_offset;
 
     function formatLocalTime(timestamp) {
       let now = new Date(timestamp);
       let localTime = now.getTime();
-      let localOffset = now.getTimezoneOffset() * 60000;
-      let utc = localTime + localOffset;
-      var location = utc + 1000 * response.data.timezone_offset;
+      let timezoneOffset = now.getTimezoneOffset() * 60000;
+      var location =
+        localTime + timezoneOffset + 1000 * response.data.timezone_offset;
       return showTime(location);
     }
   }
   document.querySelector("#local-time").innerHTML = showTime(location);
+  document.querySelector("#local-date").innerHTML = showDate(location);
+}
+
+function showWeather(response) {
+  celsiusTemperature = response.data.current.temp;
+
+  document.querySelector("#local-temperature").innerHTML = Math.round(
+    celsiusTemperature
+  );
+
+  document.querySelector("#weather-description").innerHTML =
+    response.data.current.weather[0].description;
+
+  document.querySelector("#local-time").innerHTML = showTime(location);
+
+  document
+    .querySelector("#weather-icon")
+    .setAttribute(
+      "class",
+      changeWeatherIcon(response.data.current.weather[0].icon)
+    );
+
+  document.getElementById("main-app").style.backgroundImage = changeBackground(
+    response.data.current.weather[0].icon
+  );
+
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `Humidity: ${response.data.current.humidity}%`;
+
+  document.querySelector("#wind-speed").innerHTML = `Wind speed: ${Math.round(
+    response.data.current.wind_speed * 3.6
+  )} km/h`;
 }
 
 function search(response) {
