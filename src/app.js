@@ -202,8 +202,6 @@ function showWeather(response) {
   document.querySelector("#weather-description").innerHTML =
     response.data.current.weather[0].description;
 
-  document.querySelector("#local-time").innerHTML = showTime(location);
-
   document
     .querySelector("#weather-icon")
     .setAttribute(
